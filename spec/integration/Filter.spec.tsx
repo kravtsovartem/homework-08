@@ -49,10 +49,11 @@ describe("Список задач", () => {
   it("с включенным фильтром", async () => {
     render(<App />);
 
-    const items = screen.getAllByRole("listitem");
+    const filterElem = screen.getByTestId("filter__show_closed_task");
+    await userEvent.click(filterElem);
 
-    //screen.debug();
-    expect(items).toHaveLength(3);
+    const items = screen.getAllByRole("listitem");
+    expect(items).toHaveLength(2);
   });
 
   // показывает как выполненные, так и не выполненные задачи
@@ -60,9 +61,11 @@ describe("Список задач", () => {
   it("с выключенным фильтром", async () => {
     render(<App />);
 
+    const filterElem = screen.getByTestId("filter__show_closed_task");
+    await userEvent.click(filterElem);
+
     const items = screen.getAllByRole("listitem");
 
-    //screen.debug();
     expect(items).toHaveLength(3);
   });
 });
