@@ -17,7 +17,7 @@ export const TaskList = () => {
 
   const computedList = useMemo(() => {
     return showClosedTask ? items.filter((item) => item.done) : items;
-  }, [showClosedTask]);
+  }, [items, showClosedTask]);
 
   const handleDelete = (id: Task["id"]) => {
     dispatch(deleteTask(id));

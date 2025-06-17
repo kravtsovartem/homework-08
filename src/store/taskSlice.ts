@@ -10,7 +10,7 @@ export interface taskListState {
 
 const initialState: taskListState = {
 	list: [],
-	isShowClosedTask: true,
+	isShowClosedTask: false,
 	notification: "",
 };
 
