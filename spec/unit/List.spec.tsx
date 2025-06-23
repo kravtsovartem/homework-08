@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { prettyDOM, render, screen } from "@testing-library/react";
 import { List } from "src/components/List";
 
 it("отображение списка задач", () => {
@@ -27,7 +27,7 @@ it("отображение списка задач", () => {
     <List items={items} onDelete={onDelete} onToggle={onToggle} />
   );
   const firstRender = asFragment();
-  
+
   items.pop();
 
   rerender(<List items={items} onDelete={onDelete} onToggle={onToggle} />);
@@ -37,5 +37,24 @@ it("отображение списка задач", () => {
 });
 
 it("Список содержит не больше 10 невыполненных задач", () => {
+  const onDelete = jest.fn();
+  const onToggle = jest.fn();
 
+  const items: Task[] = [];
+
+  for (let i = 0; i < 15; i++) {
+    items.push({
+      id: String(i),
+      header: "Задача " + i,
+      done: false,
+    });
+  }
+
+  const { rerender, asFragment } = render(
+    <List items={items} onDelete={onDelete} onToggle={onToggle} />
+  );
+
+  const list = screen.getAllByRole("listitem");
+
+  expect(list).toHaveLength(10);
 });
