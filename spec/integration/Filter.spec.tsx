@@ -68,4 +68,27 @@ describe("Список задач", () => {
 
     expect(items).toHaveLength(3);
   });
+
+  it("двойной клик по выключенному фильтру", async () => {
+    render(<App />);
+
+    const filterElem = screen.getByTestId("filter__show_closed_task");
+    await userEvent.dblClick(filterElem);
+
+    const items = screen.getAllByRole("listitem");
+
+    expect(items).toHaveLength(3);
+  });
+
+  it("двойной клик по включенному фильтру", async () => {
+    render(<App />);
+
+    const filterElem = screen.getByTestId("filter__show_closed_task");
+    await userEvent.click(filterElem);
+    await userEvent.dblClick(filterElem);
+
+    const items = screen.getAllByRole("listitem");
+
+    expect(items).toHaveLength(2);
+  });
 });
