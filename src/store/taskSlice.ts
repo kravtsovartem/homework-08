@@ -19,6 +19,13 @@ export const taskListSlice = createSlice({
 	initialState,
 	reducers: {
 		addTask: (state, action: PayloadAction<Task["header"]>) => {
+
+
+			if (state.list.filter((x) => !x.done).length >= 10) {
+				state.notification = `Cписок не может содержать больше 10 невыполненных задач`;
+				return
+			}
+
 			state.list.push({
 				id: crypto.randomUUID(),
 				header: action.payload,
