@@ -6,14 +6,15 @@ type Props = {
   onToggle: (id: Task["id"]) => void;
 };
 
-export const List = ({ items, onDelete, onToggle }: Props) => (
-  <ul className="task-list tasks">
-    {items.map((item) => (
-      <Item
-        {...item}
-        key={item.id}
-        onDelete={onDelete}
-        onToggle={onToggle} />
-    ))}
-  </ul>
-);
+export const List = ({ items, onDelete, onToggle }: Props) => {
+  const renderItems =
+    items.filter((item) => !item.done).length > 10 ? items.slice(0, 10) : items;
+
+  return (
+    <ul className="task-list tasks">
+      {renderItems.map((item) => (
+        <Item {...item} key={item.id} onDelete={onDelete} onToggle={onToggle} />
+      ))}
+    </ul>
+  );
+};
